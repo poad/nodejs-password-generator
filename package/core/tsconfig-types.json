@@ -1,0 +1,28 @@
+{
+  "import": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": [
+      "DOM",
+      "esnext"
+    ],
+    "rootDir": "./src",
+    "outDir": ".",
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "emitDeclarationOnly": true
+  },
+  "files": [
+    "src/index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*.test.ts"
+  ]
+}

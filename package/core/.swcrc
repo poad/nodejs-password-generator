@@ -1,0 +1,24 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "test": ".*/*.(m)?ts$",
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false,
+      "decorators": true,
+      "dynamicImport": false
+    },
+    "target": "esnext"
+  },
+  "minify": false,
+  "module": {
+    "type": "nodenext"
+  },
+  "sourceMaps": true,
+  "exclude": [
+    "tests",
+    ".*.test.ts$",
+    ".*.js$",
+    ".*.map$"
+  ]
+}
