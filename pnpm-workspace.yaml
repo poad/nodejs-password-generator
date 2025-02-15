@@ -1,3 +1,4 @@
 packages:
-  - './package/**'
-  - './example/**'
+  - './package/core'
+  - './example/app'
+  - './example/cdk'

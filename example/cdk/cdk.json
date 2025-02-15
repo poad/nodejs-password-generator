@@ -1,0 +1,32 @@
+{
+  "app": "pnpm lint && pnpm dlx tsx bin/cdk.ts",
+  "watch": {
+    "include": [
+      "**"
+    ],
+    "exclude": [
+      "README.md",
+      "cdk*.json",
+      "**/*.d.ts",
+      "**/*.js",
+      "tsconfig.json",
+      "package*.json",
+      "yarn.lock",
+      "node_modules",
+      "test"
+    ]
+  },
+  "requireApproval": "never",
+  "versionReporting": false,
+  "pathMetadata": false,
+  "context": {
+    "config": {
+      "stackName": "nodejs-password-generator",
+      "bucketName": "nodejs-password-generator",
+      "cloudfront": {
+        "comment": "Node.js Password Generator",
+        "originAccessControlName": "nodejs-password-generator-oac"
+      }
+    }
+  }
+}

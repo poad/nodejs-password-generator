@@ -1,28 +1,25 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy to Pages
+name: Deploy to CloudFront
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+env:
+  OIDC_IAM_ROLE_ARN: ${{ secrets.OIDC_IAM_ROLE_ARN }}
+  AWS_REGION: us-west-2
+
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -31,21 +28,45 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          check-latest: true
+
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
           run_install: |
             - recursive: true
               args: [--no-frozen-lockfile]
-      - name: Build
-        run: pnpm run --if-present --recursive --parallel build
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+            - args: [--global, aws-cdk, esbuild]
+
+      - run: pnpm approve-builds -g
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          # Upload entire repository
-          path: './example/dist'
-      - name: Deploy to GitHub Pages
+          role-to-assume: ${{ env.OIDC_IAM_ROLE_ARN }}
+          role-session-name: GitHubActions
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: debug
+        run: |
+          ls -la
+          pwd
+          cd example/cdk
+          ls -la
+
+      - name: deploy
+        working-directory: example/cdk
+        run: |
+          cdk deploy
+
+      - name: Retirives CloudFront Distribution Domain Name
         id: deployment
-        uses: actions/deploy-pages@v4
+        run: |
+          CF_ID="$(aws cloudformation describe-stack-resources --stack-name nodejs-password-generator --query 'StackResources[?ResourceType==`AWS::CloudFront::Distribution`].[PhysicalResourceId][]' --output text)"
+          CF_DOMAIN="$(aws cloudfront get-distribution --id "$CF_ID" --query 'Distribution.DomainName' --output text)"
+          echo "page_url=$CF_DOMAIN" >> "$GITHUB_OUTPUT"
