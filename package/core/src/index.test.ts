@@ -1,4 +1,3 @@
-import { AssertionError } from 'assert';
 import core from './index';
 import { describe, expect, it } from 'vitest';
 
@@ -6,7 +5,7 @@ describe('core', () => {
   it('default', async () => {
     const actual = await core.generatePassword(16);
     expect(actual?.length).toBe(16);
-    expect(actual).toMatch(/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{}|;:,.<>?]+$/);
+    expect(actual).toMatch(/^[A-Za-z0-9!@#$%^&*()_+\-=\\[\\]{}|;:,.<>?]+$/);
   });
 
   it('only digits', async () => {

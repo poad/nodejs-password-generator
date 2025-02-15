@@ -52,13 +52,6 @@ jobs:
           role-session-name: GitHubActions
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: debug
-        run: |
-          ls -la
-          pwd
-          cd example/cdk
-          ls -la
-
       - name: deploy
         working-directory: example/cdk
         run: |

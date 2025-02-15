@@ -2,7 +2,7 @@ import * as childProcess from 'child_process';
 import * as fs from 'fs';
 
 export function buildFrontend() {
-  [`${process.cwd()}/../app/dist`].forEach(
+  [`${process.cwd()}/../dist`].forEach(
     (dir) => {
       if (fs.existsSync(dir)) {
         fs.rmSync(dir, {
@@ -14,7 +14,7 @@ export function buildFrontend() {
 
   ['pnpm build'].forEach((cmd) => {
     childProcess.execSync(cmd, {
-      cwd: `${process.cwd()}/../app`,
+      cwd: `${process.cwd()}/..`,
       stdio: ['ignore', 'inherit', 'inherit'],
       env: { ...process.env },
       shell: 'bash',

@@ -1,6 +1,6 @@
 import core from '@nodejs-password-generator/core';
-import { createResource, createSignal, Show, Suspense } from 'solid-js';
-import { writeClipboard } from "@solid-primitives/clipboard";
+import { createResource, Show, Suspense } from 'solid-js';
+import { writeClipboard } from '@solid-primitives/clipboard';
 import { FiCopy } from 'solid-icons/fi';
 import { BsClipboardCheckFill } from 'solid-icons/bs';
 import { OcMarkgithub2 } from 'solid-icons/oc';

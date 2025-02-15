@@ -15,7 +15,8 @@
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "removeComments": false
   },
   "files": [
     "src/index.ts"

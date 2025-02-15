@@ -10,7 +10,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     testTransformMode: {
-      web: ["/\.[jt]sx?$/"],
+      web: ["/\\.[jt]sx?$/"],
     },
     setupFiles: './setupVitest.ts',
     // solid needs to be inline to work around

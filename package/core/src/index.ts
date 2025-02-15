@@ -1,25 +1,68 @@
+/**
+ * クロスプラットフォーム対応のための暗号化API参照
+ * ブラウザ環境とNode.js環境の両方で動作するように設定
+ */
 const crypto = typeof window !== 'undefined' ? window.crypto : globalThis.crypto;
 
-async function generatePassword(length: number = 16): Promise<string | undefined> {
+/**
+ * デフォルトのパスワード生成関数
+ * すべての文字種（大文字、小文字、数字、記号）を含むパスワードを生成
+ *
+ * @param length - パスワードの長さ（デフォルト: 16文字）
+ * @returns 生成されたパスワード文字列、または生成失敗時はundefined
+ */
+async function generatePassword(length = 16): Promise<string | undefined> {
   return generatePasswordWithOptions({
     length,
     includeUpperCase: true,
     includeLowerCase: true,
     includeDigits: true,
-    includeSymbols: true
+    includeSymbols: true,
   });
 };
 
+/**
+ * パスワード生成のオプション設定用インターフェース
+ */
 interface PasswordOptions {
+  /** パスワードの長さ */
   length: number;
+  /** 大文字を含めるかどうか */
   includeUpperCase?: boolean;
+  /** 小文字を含めるかどうか */
   includeLowerCase?: boolean;
+  /** 数字を含めるかどうか */
   includeDigits?: boolean;
+  /** 記号を含めるかどうか */
   includeSymbols?: boolean;
+  /** カスタム記号セット（未実装） */
   customSymbols?: string;
 }
 
+/**
+ * カスタマイズ可能なパスワード生成関数
+ *
+ * @param options - パスワード生成オプション
+ * @returns 生成されたパスワード文字列、または生成失敗時はundefined
+ *
+ * @remarks
+ * - 暗号学的に安全な乱数生成を使用
+ * - 選択された各文字種から最低1文字を含むことを保証
+ * - 最終的なパスワードはランダムにシャッフル
+ *
+ * @example
+ * ```typescript
+ * const password = await generatePasswordWithOptions({
+ *   length: 12,
+ *   includeUpperCase: true,
+ *   includeLowerCase: true,
+ *   includeDigits: false,
+ *   includeSymbols: true
+ * });
+ * ```
+ */
 async function generatePasswordWithOptions(options: PasswordOptions = { length: 16 }): Promise<string | undefined> {
+  // 使用可能な文字セットの定義
   const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
   const digits = '0123456789';
@@ -48,7 +91,12 @@ async function generatePasswordWithOptions(options: PasswordOptions = { length: 
 
   const allChars = charsets.join('');
 
-  // 暗号学的に安全な乱数を生成
+  /**
+     * 指定された文字セットからランダムな1文字を生成
+     *
+     * @param charset - 文字セット
+     * @returns ランダムに選択された1文字
+     */
   const getRandomChar = async (charset: string): Promise<string> => {
     const array = new Uint32Array(1);
     crypto.getRandomValues(array);
@@ -57,22 +105,26 @@ async function generatePasswordWithOptions(options: PasswordOptions = { length: 
 
   // 必須文字の生成（選択された各文字セットから1文字ずつ）
   const requiredChars = await Promise.all(
-    charsets.map(charset => getRandomChar(charset))
+    charsets.map(charset => getRandomChar(charset)),
   );
 
   // 残りの文字を生成
   const remainingChars = await Promise.all(
     Array(length - requiredChars.length)
       .fill(null)
-      .map(() => getRandomChar(allChars))
+      .map(() => getRandomChar(allChars)),
   );
 
-  // シャッフル関数
+  /**
+     * 配列の要素をランダムにシャッフル
+     *
+     * @param array - シャッフルする配列
+     * @returns シャッフルされた新しい配列
+     */
   const shuffle = async <T>(array: T[]): Promise<T[]> => {
     const result = [...array];
     const randomArray = new Uint32Array(result.length);
     crypto.getRandomValues(randomArray);
-
     return result.map((_, index, arr) => {
       const randomIndex = index + (randomArray[index] % (arr.length - index));
       const randomValue = arr[randomIndex];
