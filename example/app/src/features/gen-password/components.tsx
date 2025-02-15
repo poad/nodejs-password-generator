@@ -37,7 +37,7 @@ export function GenPassword() {
 
   return (
     <div class='flex flex-col p-4'>
-      <p class="text-2xl pb-2">Generated Password</p>
+      <p class="text-2xl pb-2">Password Generator</p>
       <div class='flex pb-2'>
         <Suspense fallback="Generating...">
           <div class='flex flex-col p-4'>
