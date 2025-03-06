@@ -20,7 +20,7 @@ const gitignorePath = path.resolve(__dirname, "./.gitignore");
 export default tseslint.config(
   includeIgnoreFile(gitignorePath),
   {
-    ignores: ['dist/'],
+    ignores: ['dist/', "*.d.ts"],
   },
   eslint.configs.recommended,
   pluginPromise.configs['flat/recommended'],
