@@ -28,7 +28,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.22.0",
-    "eslint-import-resolver-typescript": "^4.0.0",
+    "eslint-import-resolver-typescript": "^4.2.2",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-solid": "^0.14.5",
@@ -39,7 +39,7 @@
     "typescript-eslint": "^8.26.1",
     "vite": "^6.2.2",
     "vite-plugin-solid": "^2.11.6",
-    "vitest": "^3.0.8"
+    "vitest": "^3.0.9"
   },
   "dependencies": {
     "@nodejs-password-generator/core": "workspace:*",
