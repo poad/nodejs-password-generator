@@ -10,13 +10,5 @@
   "devDependencies": {
     "pnpm": "^10.12.4"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ],
-    "overrides": {
-      "esbuild": ">=0.25.0"
-    }
-  },
   "packageManager": "pnpm@10.12.4"
 }
