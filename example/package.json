@@ -32,7 +32,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.38.0",
+    "typescript-eslint": "^8.39.0",
     "vite": "^6.3.5",
     "vite-plugin-solid": "^2.11.8",
     "vitest": "^3.2.4"
@@ -41,7 +41,7 @@
     "@nodejs-password-generator/core": "workspace:*",
     "@solid-primitives/clipboard": "^1.6.2",
     "solid-icons": "^1.1.0",
-    "solid-js": "^1.9.7",
+    "solid-js": "^1.9.8",
     "solidjs-use": "^2.3.0"
   }
 }
