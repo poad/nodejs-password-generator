@@ -5,7 +5,7 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { buildFrontend } from './process/setup';
-import * as deployment from "aws-cdk-lib/aws-s3-deployment";
+import * as deployment from 'aws-cdk-lib/aws-s3-deployment';
 
 export interface Config {
   stackName: string;
@@ -74,15 +74,15 @@ export class CloudfrontCdnTemplateStack extends cdk.Stack {
       httpVersion: cloudfront.HttpVersion.HTTP3,
     });
 
-    const deployRole = new iam.Role(this, "DeployWebsiteRole", {
+    const deployRole = new iam.Role(this, 'DeployWebsiteRole', {
       roleName: `${appName}-deploy-role`,
-      assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
+      assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       inlinePolicies: {
-        "s3-policy": new iam.PolicyDocument({
+        's3-policy': new iam.PolicyDocument({
           statements: [
             new iam.PolicyStatement({
               effect: iam.Effect.ALLOW,
-              actions: ["s3:*"],
+              actions: ['s3:*'],
               resources: [`${s3bucket.bucketArn}/`, `${s3bucket.bucketArn}/*`],
             }),
           ],
@@ -90,11 +90,11 @@ export class CloudfrontCdnTemplateStack extends cdk.Stack {
       },
     });
 
-    new deployment.BucketDeployment(this, "DeployWebsite", {
+    new deployment.BucketDeployment(this, 'DeployWebsite', {
       sources: [deployment.Source.asset(`${process.cwd()}/../dist`)],
       destinationBucket: s3bucket,
-      destinationKeyPrefix: "/",
-      exclude: [".DS_Store", "*/.DS_Store"],
+      destinationKeyPrefix: '/',
+      exclude: ['.DS_Store', '*/.DS_Store'],
       prune: true,
       retainOnDelete: false,
       role: deployRole,
