@@ -21,8 +21,8 @@
     "@eslint/js": "^9.34.0",
     "@stylistic/eslint-plugin": "^5.2.3",
     "@swc/cli": "^0.7.8",
-    "@swc/core": "^1.13.4",
-    "@types/node": "^22.17.2",
+    "@swc/core": "^1.13.5",
+    "@types/node": "^22.18.0",
     "eslint": "^9.34.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
@@ -31,7 +31,7 @@
     "regenerator-runtime": "^0.14.1",
     "rimraf": "^6.0.1",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.40.0",
+    "typescript-eslint": "^8.41.0",
     "vitest": "^3.2.4"
   }
 }
