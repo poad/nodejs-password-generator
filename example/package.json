@@ -16,7 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "@eslint/compat": "^1.4.1",
-    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.1",
     "@solidjs/testing-library": "^0.8.10",
     "@stylistic/eslint-plugin": "^5.6.1",
