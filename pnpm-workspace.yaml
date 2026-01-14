@@ -1,9 +1,15 @@
 packages:
-  - './package/core'
-  - './example'
-  - './example/cdk'
+  - ./package/core
+  - ./example
+  - ./example/cdk
+
+autoInstallPeers: true
 
 enablePrePostScripts: true
+
 legacyPeerDeps: true
-autoInstallPeers: true
+
+overrides:
+  diff@<8.0.3: '>=8.0.3'
+
 strictPeerDependencies: false
