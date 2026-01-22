@@ -40,7 +40,7 @@
   "dependencies": {
     "@nodejs-password-generator/core": "workspace:*",
     "@solid-primitives/clipboard": "^1.6.2",
-    "solid-icons": "^1.1.0",
+    "solid-icons": "^1.2.0",
     "solid-js": "^1.9.10",
     "solidjs-use": "^2.3.0"
   }
