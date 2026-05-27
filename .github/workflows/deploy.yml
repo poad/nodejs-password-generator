@@ -48,7 +48,7 @@ jobs:
       - run: pnpm approve-builds -g
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v6
+        uses: aws-actions/configure-aws-credentials@v6.1.1
         with:
           role-to-assume: ${{ env.OIDC_IAM_ROLE_ARN }}
           role-session-name: GitHubActions
