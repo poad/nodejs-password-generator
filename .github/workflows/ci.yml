@@ -8,8 +8,7 @@ on:
     branches:
     - main
 
-  workflow_dispatch:
-
+  workflow_dispatch: null
 jobs:
   build:
     name: Build
@@ -17,6 +16,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v6
+      with:
+        persist-credentials: false
 
     - uses: pnpm/action-setup@v6
       name: Install pnpm

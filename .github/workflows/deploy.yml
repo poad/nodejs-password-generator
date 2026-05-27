@@ -4,8 +4,7 @@ on:
   push:
     branches: ["main"]
 
-  workflow_dispatch:
-
+  workflow_dispatch: null
 env:
   OIDC_IAM_ROLE_ARN: ${{ secrets.OIDC_IAM_ROLE_ARN }}
   AWS_REGION: us-west-2
@@ -28,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - name: Use Node.js
         uses: actions/setup-node@v6
