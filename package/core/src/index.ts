@@ -105,7 +105,7 @@ async function generatePasswordWithOptions(options: PasswordOptions = { length: 
 
   // 必須文字の生成（選択された各文字セットから1文字ずつ）
   const requiredChars = await Promise.all(
-    charsets.map(charset => getRandomChar(charset)),
+    charsets.map((charset) => getRandomChar(charset)),
   );
 
   // 残りの文字を生成
