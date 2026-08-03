@@ -28,7 +28,7 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-promise": "^7.3.0",
     "eslint-plugin-solid": "^0.14.5",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.0",
     "postcss": "^8.5.20",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
