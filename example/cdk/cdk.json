@@ -21,7 +21,7 @@
   "pathMetadata": false,
   "context": {
     "config": {
-      "stackName": "nodejs-password-generator",
+      "stackName": "NodejsPasswordGenerator",
       "bucketName": "nodejs-password-generator",
       "cloudfront": {
         "comment": "Node.js Password Generator",

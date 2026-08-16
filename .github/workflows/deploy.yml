@@ -29,6 +29,7 @@ jobs:
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
+        fetch-depth: 1
 
     - name: Install pnpm
       uses: pnpm/setup@4700d737c3d7a2e7199f3d42a920f0bf7f34e411 # v2.0.1
@@ -47,6 +48,6 @@ jobs:
     - name: Retirives CloudFront Distribution Domain Name
       id: deployment
       run: |
-        CF_ID="$(aws cloudformation describe-stack-resources --stack-name nodejs-password-generator --query 'StackResources[?ResourceType==`AWS::CloudFront::Distribution`].[PhysicalResourceId][]' --output text)"
+        CF_ID="$(aws cloudformation describe-stack-resources --stack-name NodejsPasswordGenerator --query 'StackResources[?ResourceType==`AWS::CloudFront::Distribution`].[PhysicalResourceId][]' --output text)"
         CF_DOMAIN="$(aws cloudfront get-distribution --id "$CF_ID" --query 'Distribution.DomainName' --output text)"
-        echo "page_url=$CF_DOMAIN" >> "$GITHUB_OUTPUT"
+        echo "page_url=https://$CF_DOMAIN" >> "$GITHUB_OUTPUT"
