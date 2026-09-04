@@ -119,7 +119,7 @@ importers:
   .:
     devDependencies:
       node:
-        specifier: runtime:^24.19.0
+        specifier: runtime:^24.20.0
         version: runtime:24.20.0
 
 packages:
