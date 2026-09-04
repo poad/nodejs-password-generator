@@ -23,5 +23,11 @@
       "onFail": "download"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=11",
+    "npm": "echo Please use pnpm!",
+    "yarn": "echo Please use pnpm!"
+  }
 }
