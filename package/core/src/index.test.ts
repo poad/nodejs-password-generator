@@ -1,5 +1,6 @@
-import core from './index';
 import { describe, expect, it } from 'vitest';
+
+import core from './index';
 
 describe('core', () => {
   it('default', async () => {
@@ -21,12 +22,14 @@ describe('core', () => {
   });
 
   it('invalid options', async () => {
-    expect(await core.generatePasswordWithOptions({
-      length: 18,
-      includeUpperCase: false,
-      includeLowerCase: false,
-      includeDigits: false,
-      includeSymbols: false,
-    })).toBeUndefined();
+    expect(
+      await core.generatePasswordWithOptions({
+        length: 18,
+        includeUpperCase: false,
+        includeLowerCase: false,
+        includeDigits: false,
+        includeSymbols: false,
+      }),
+    ).toBeUndefined();
   });
 });

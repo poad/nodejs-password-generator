@@ -2,10 +2,7 @@
   "import": "./tsconfig.json",
   "compilerOptions": {
     "target": "esnext",
-    "lib": [
-      "DOM",
-      "esnext"
-    ],
+    "lib": ["DOM", "esnext"],
     "rootDir": "./src",
     "outDir": ".",
     "moduleResolution": "bundler",
@@ -18,12 +15,6 @@
     "emitDeclarationOnly": true,
     "removeComments": false
   },
-  "files": [
-    "src/index.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "src/**/*.test.ts"
-  ]
+  "files": ["src/index.ts"],
+  "exclude": ["node_modules", "dist", "src/**/*.test.ts"]
 }

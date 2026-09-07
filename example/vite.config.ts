@@ -10,7 +10,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     testTransformMode: {
-      web: ["/\\.[jt]sx?$/"],
+      web: ['/\\.[jt]sx?$/'],
     },
     setupFiles: './setupVitest.ts',
     // solid needs to be inline to work around
@@ -19,8 +19,8 @@ export default defineConfig({
       optimizer: {
         web: {
           include: ['/solid-js/'],
-        }
-      }
+        },
+      },
     },
     // if you have few tests, try commenting one
     // or both out to improve performance:
@@ -32,5 +32,5 @@ export default defineConfig({
   },
   resolve: {
     conditions: ['development', 'browser'],
-  }
+  },
 });

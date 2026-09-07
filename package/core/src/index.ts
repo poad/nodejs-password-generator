@@ -19,7 +19,7 @@ async function generatePassword(length = 16): Promise<string | undefined> {
     includeDigits: true,
     includeSymbols: true,
   });
-};
+}
 
 /**
  * パスワード生成のオプション設定用インターフェース
@@ -61,7 +61,9 @@ interface PasswordOptions {
  * });
  * ```
  */
-async function generatePasswordWithOptions(options: PasswordOptions = { length: 16 }): Promise<string | undefined> {
+async function generatePasswordWithOptions(
+  options: PasswordOptions = { length: 16 },
+): Promise<string | undefined> {
   // 使用可能な文字セットの定義
   const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
@@ -92,11 +94,11 @@ async function generatePasswordWithOptions(options: PasswordOptions = { length: 
   const allChars = charsets.join('');
 
   /**
-     * 指定された文字セットからランダムな1文字を生成
-     *
-     * @param charset - 文字セット
-     * @returns ランダムに選択された1文字
-     */
+   * 指定された文字セットからランダムな1文字を生成
+   *
+   * @param charset - 文字セット
+   * @returns ランダムに選択された1文字
+   */
   const getRandomChar = async (charset: string): Promise<string> => {
     const array = new Uint32Array(1);
     crypto.getRandomValues(array);
@@ -104,9 +106,7 @@ async function generatePasswordWithOptions(options: PasswordOptions = { length: 
   };
 
   // 必須文字の生成（選択された各文字セットから1文字ずつ）
-  const requiredChars = await Promise.all(
-    charsets.map((charset) => getRandomChar(charset)),
-  );
+  const requiredChars = await Promise.all(charsets.map((charset) => getRandomChar(charset)));
 
   // 残りの文字を生成
   const remainingChars = await Promise.all(
@@ -116,11 +116,11 @@ async function generatePasswordWithOptions(options: PasswordOptions = { length: 
   );
 
   /**
-     * 配列の要素をランダムにシャッフル
-     *
-     * @param array - シャッフルする配列
-     * @returns シャッフルされた新しい配列
-     */
+   * 配列の要素をランダムにシャッフル
+   *
+   * @param array - シャッフルする配列
+   * @returns シャッフルされた新しい配列
+   */
   const shuffle = async <T>(array: T[]): Promise<T[]> => {
     const result = [...array];
     const randomArray = new Uint32Array(result.length);
@@ -136,7 +136,7 @@ async function generatePasswordWithOptions(options: PasswordOptions = { length: 
   // すべての文字を結合してシャッフル
   const shuffled = await shuffle([...requiredChars, ...remainingChars]);
   return shuffled.join('');
-};
+}
 
 export default {
   generatePassword,

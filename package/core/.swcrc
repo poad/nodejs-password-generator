@@ -15,10 +15,5 @@
     "type": "nodenext"
   },
   "sourceMaps": true,
-  "exclude": [
-    "tests",
-    ".*.test.ts$",
-    ".*.js$",
-    ".*.map$"
-  ]
+  "exclude": ["tests", ".*.test.ts$", ".*.js$", ".*.map$"]
 }

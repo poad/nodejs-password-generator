@@ -10,18 +10,18 @@ declare function generatePassword(length?: number): Promise<string | undefined>;
  * パスワード生成のオプション設定用インターフェース
  */
 interface PasswordOptions {
-    /** パスワードの長さ */
-    length: number;
-    /** 大文字を含めるかどうか */
-    includeUpperCase?: boolean;
-    /** 小文字を含めるかどうか */
-    includeLowerCase?: boolean;
-    /** 数字を含めるかどうか */
-    includeDigits?: boolean;
-    /** 記号を含めるかどうか */
-    includeSymbols?: boolean;
-    /** カスタム記号セット（未実装） */
-    customSymbols?: string;
+  /** パスワードの長さ */
+  length: number;
+  /** 大文字を含めるかどうか */
+  includeUpperCase?: boolean;
+  /** 小文字を含めるかどうか */
+  includeLowerCase?: boolean;
+  /** 数字を含めるかどうか */
+  includeDigits?: boolean;
+  /** 記号を含めるかどうか */
+  includeSymbols?: boolean;
+  /** カスタム記号セット（未実装） */
+  customSymbols?: string;
 }
 /**
  * カスタマイズ可能なパスワード生成関数
@@ -45,10 +45,12 @@ interface PasswordOptions {
  * });
  * ```
  */
-declare function generatePasswordWithOptions(options?: PasswordOptions): Promise<string | undefined>;
+declare function generatePasswordWithOptions(
+  options?: PasswordOptions,
+): Promise<string | undefined>;
 declare const _default: {
-    generatePassword: typeof generatePassword;
-    generatePasswordWithOptions: typeof generatePasswordWithOptions;
+  generatePassword: typeof generatePassword;
+  generatePasswordWithOptions: typeof generatePasswordWithOptions;
 };
 export default _default;
 //# sourceMappingURL=index.d.ts.map

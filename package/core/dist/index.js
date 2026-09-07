@@ -9,13 +9,13 @@
  * @param length - パスワードの長さ（デフォルト: 16文字）
  * @returns 生成されたパスワード文字列、または生成失敗時はundefined
  */ async function generatePassword(length = 16) {
-    return generatePasswordWithOptions({
-        length,
-        includeUpperCase: true,
-        includeLowerCase: true,
-        includeDigits: true,
-        includeSymbols: true
-    });
+  return generatePasswordWithOptions({
+    length,
+    includeUpperCase: true,
+    includeLowerCase: true,
+    includeDigits: true,
+    includeSymbols: true,
+  });
 }
 /**
  * カスタマイズ可能なパスワード生成関数
@@ -38,70 +38,76 @@
  *   includeSymbols: true
  * });
  * ```
- */ async function generatePasswordWithOptions(options = {
-    length: 16
-}) {
-    // 使用可能な文字セットの定義
-    const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
-    const digits = '0123456789';
-    const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-    // デフォルトオプション
-    const { length = 16, includeUpperCase = true, includeLowerCase = true, includeDigits = true, includeSymbols = true } = options;
-    // 使用する文字セットを構築
-    const charsets = [
-        includeUpperCase && upperCase,
-        includeLowerCase && lowerCase,
-        includeDigits && digits,
-        includeSymbols && symbols
-    ].filter(Boolean);
-    if (charsets.length === 0) {
-        return undefined;
-    }
-    const allChars = charsets.join('');
-    /**
-     * 指定された文字セットからランダムな1文字を生成
-     *
-     * @param charset - 文字セット
-     * @returns ランダムに選択された1文字
-     */ const getRandomChar = async (charset)=>{
-        const array = new Uint32Array(1);
-        crypto.getRandomValues(array);
-        return charset[array[0] % charset.length];
-    };
-    // 必須文字の生成（選択された各文字セットから1文字ずつ）
-    const requiredChars = await Promise.all(charsets.map((charset)=>getRandomChar(charset)));
-    // 残りの文字を生成
-    const remainingChars = await Promise.all(Array(length - requiredChars.length).fill(null).map(()=>getRandomChar(allChars)));
-    /**
-     * 配列の要素をランダムにシャッフル
-     *
-     * @param array - シャッフルする配列
-     * @returns シャッフルされた新しい配列
-     */ const shuffle = async (array)=>{
-        const result = [
-            ...array
-        ];
-        const randomArray = new Uint32Array(result.length);
-        crypto.getRandomValues(randomArray);
-        return result.map((_, index, arr)=>{
-            const randomIndex = index + randomArray[index] % (arr.length - index);
-            const randomValue = arr[randomIndex];
-            arr[randomIndex] = arr[index];
-            return randomValue;
-        });
-    };
-    // すべての文字を結合してシャッフル
-    const shuffled = await shuffle([
-        ...requiredChars,
-        ...remainingChars
-    ]);
-    return shuffled.join('');
+ */ async function generatePasswordWithOptions(
+  options = {
+    length: 16,
+  },
+) {
+  // 使用可能な文字セットの定義
+  const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+  const digits = '0123456789';
+  const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+  // デフォルトオプション
+  const {
+    length = 16,
+    includeUpperCase = true,
+    includeLowerCase = true,
+    includeDigits = true,
+    includeSymbols = true,
+  } = options;
+  // 使用する文字セットを構築
+  const charsets = [
+    includeUpperCase && upperCase,
+    includeLowerCase && lowerCase,
+    includeDigits && digits,
+    includeSymbols && symbols,
+  ].filter(Boolean);
+  if (charsets.length === 0) {
+    return undefined;
+  }
+  const allChars = charsets.join('');
+  /**
+   * 指定された文字セットからランダムな1文字を生成
+   *
+   * @param charset - 文字セット
+   * @returns ランダムに選択された1文字
+   */ const getRandomChar = async (charset) => {
+    const array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+    return charset[array[0] % charset.length];
+  };
+  // 必須文字の生成（選択された各文字セットから1文字ずつ）
+  const requiredChars = await Promise.all(charsets.map((charset) => getRandomChar(charset)));
+  // 残りの文字を生成
+  const remainingChars = await Promise.all(
+    Array(length - requiredChars.length)
+      .fill(null)
+      .map(() => getRandomChar(allChars)),
+  );
+  /**
+   * 配列の要素をランダムにシャッフル
+   *
+   * @param array - シャッフルする配列
+   * @returns シャッフルされた新しい配列
+   */ const shuffle = async (array) => {
+    const result = [...array];
+    const randomArray = new Uint32Array(result.length);
+    crypto.getRandomValues(randomArray);
+    return result.map((_, index, arr) => {
+      const randomIndex = index + (randomArray[index] % (arr.length - index));
+      const randomValue = arr[randomIndex];
+      arr[randomIndex] = arr[index];
+      return randomValue;
+    });
+  };
+  // すべての文字を結合してシャッフル
+  const shuffled = await shuffle([...requiredChars, ...remainingChars]);
+  return shuffled.join('');
 }
 export default {
-    generatePassword,
-    generatePasswordWithOptions
+  generatePassword,
+  generatePasswordWithOptions,
 };
-
 
 //# sourceMappingURL=index.js.map
