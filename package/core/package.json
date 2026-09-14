@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@swc/cli": "^0.8.1",
-    "@swc/core": "^1.16.1",
+    "@swc/core": "^1.16.2",
     "@types/node": "^26.4.1",
     "regenerator-runtime": "^0.14.1",
     "rimraf": "^6.1.3",
