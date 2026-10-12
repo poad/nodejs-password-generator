@@ -1,5 +1,13 @@
 {
-  "ignorePatterns": [],
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": ["dist", "*.d.ts"],
   "singleQuote": true,
-  "sortImports": true
+  "sortImports": {
+    "groups": [
+      ["value-builtin", "type-builtin"],
+      ["value-sibling", "value-parent", "type-sibling", "type-parent"],
+      ["value-index", "type-index"],
+      "unknown"
+    ]
+  }
 }

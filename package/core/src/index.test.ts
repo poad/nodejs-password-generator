@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
-
 import core from './index';
+
+import { describe, expect, it } from 'vitest';
 
 describe('core', () => {
   it('default', async () => {
