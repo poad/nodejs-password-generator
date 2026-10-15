@@ -18,7 +18,7 @@
     "@nodejs-password-generator/core": "workspace:*",
     "@solid-primitives/clipboard": "^1.6.6",
     "solid-icons": "^1.2.0",
-    "solid-js": "^1.9.16",
+    "solid-js": "^1.9.17",
     "solidjs-use": "^2.3.0"
   },
   "devDependencies": {
