@@ -8,7 +8,7 @@ echo "${CURRENT}"
 cd "${CURRENT}" || exit
 if ! git pull --prune; then
   cd "${CUR}" || exit
-  exit $result
+  exit 1
 fi
 
 cd "${CURRENT}" || exit
@@ -19,7 +19,7 @@ if [ $result -ne 0 ]; then
 fi
 echo ""
 pwd
-if ! (disable-checkout-persist-credentials && pnx pnpm@latest self-update && pnpm clean --lockfile && pnpm install --no-frozen-lockfile && pnpm up -r --include-github-actions && pnpm audit --fix override && pnpm up -r && pnpm -r --if-present lint-fix && pnpm -r --if-present build && pnpm install --no-frozen-lockfile); then
+if ! (disable-checkout-persist-credentials && pnx pnpm@latest self-update && pnpm clean --lockfile && pnpm install --no-frozen-lockfile && pnpm up -r --include-github-actions -L && pnpm audit --fix override && pnpm up -r && pnpm -r --if-present lint-fix && pnpm -r --if-present build && pnpm install --no-frozen-lockfile); then
   cd "${CUR}" || exit
   exit 1
 fi

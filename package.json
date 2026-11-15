@@ -14,17 +14,17 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "12.18.0",
+      "version": "12.21.0",
       "onFail": "download"
     },
     "runtime": {
       "name": "node",
-      "version": "^24.22.3",
+      "version": "^26.13.1",
       "onFail": "download"
     }
   },
   "devDependencies": {
-    "oxfmt": "^0.76.0",
+    "oxfmt": "^0.77.0",
     "oxlint": "^1.92.0"
   },
   "engines": {
