@@ -18,7 +18,7 @@
     "@nodejs-password-generator/core": "workspace:*",
     "@solid-primitives/clipboard": "^1.6.6",
     "solid-icons": "^1.2.0",
-    "solid-js": "^1.9.18",
+    "solid-js": "^1.9.19",
     "solidjs-use": "^2.3.0"
   },
   "devDependencies": {
@@ -31,8 +31,8 @@
     "postcss": "^8.5.32",
     "tailwindcss": "^4.3.5",
     "typescript": "^7.0.2",
-    "vite": "^8.3.7",
-    "vite-plugin-solid": "^2.11.15",
+    "vite": "^8.3.8",
+    "vite-plugin-solid": "^2.11.16",
     "vitest": "^5.1.0"
   }
 }
