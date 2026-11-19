@@ -1,10 +1,6 @@
 import core from '@nodejs-password-generator/core';
 import { writeClipboard } from '@solid-primitives/clipboard';
-import { BsClipboardCheckFill } from 'solid-icons/bs';
-import { FiCopy } from 'solid-icons/fi';
-import { OcMarkgithub2 } from 'solid-icons/oc';
-import { createResource, Show, Suspense } from 'solid-js';
-import { createStore } from 'solid-js/store';
+import { createMemo, createStore, Loading, Show } from 'solid-js';
 
 export function GenPassword() {
   const [store, setStore] = createStore<{
@@ -25,7 +21,7 @@ export function GenPassword() {
     error: undefined,
   });
 
-  const [password, { refetch }] = createResource(async () => {
+  const password = createMemo(async () => {
     return core.generatePasswordWithOptions({
       length: store.length,
       includeUpperCase: store.upperCase,
@@ -39,12 +35,12 @@ export function GenPassword() {
     <div class="flex flex-col p-4">
       <p class="text-2xl pb-2">Password Generator</p>
       <div class="flex pb-2">
-        <Suspense fallback="Generating...">
+        <Loading fallback="Generating...">
           <div class="flex flex-col p-4">
             <div class="flex pb-2">
               <input
                 type="text"
-                readOnly
+                readonly
                 value={password() ?? ''}
                 class="border mr-2"
                 size={password()?.length}
@@ -52,23 +48,40 @@ export function GenPassword() {
               <Show
                 when={!store.copied}
                 fallback={
-                  <BsClipboardCheckFill
-                    class="self-center"
-                    title="クリップボードにコピーしました"
-                  />
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    class="self-center h-5 w-5"
+                  >
+                    <title>クリップボードにコピーしました</title>
+                    <rect x="5" y="4" width="14" height="18" rx="2" />
+                    <path d="M9 4.5V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1.5" />
+                    <path d="m8 14 3 3 5-6" />
+                  </svg>
                 }
               >
-                <FiCopy
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
                   onClick={() => {
                     const value = password();
                     if (value) {
                       writeClipboard(value);
-                      setStore((prev) => ({ ...prev, copied: true }));
+                      setStore((draft) => {
+                        draft.copied = true;
+                      });
                     }
                   }}
-                  title="クリップボードにコピーする"
-                  class="self-center"
-                />
+                  class="self-center h-5 w-5 cursor-pointer"
+                >
+                  <title>クリップボードにコピーする</title>
+                  <rect x="8" y="8" width="13" height="13" rx="2" />
+                  <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+                </svg>
               </Show>
             </div>
 
@@ -84,16 +97,14 @@ export function GenPassword() {
                   value={store.length}
                   onChange={(e) => {
                     const value = parseInt(e.target.value);
-                    setStore((prev) => {
+                    setStore((draft) => {
                       if (value >= 4) {
-                        return { ...prev, length: value, error: undefined };
+                        draft.length = value;
+                        delete draft.error;
                       } else {
-                        return { ...prev, error: 'Length must be greater than or equal to 4' };
+                        draft.error = 'Length must be greater than or equal to 4';
                       }
                     });
-                    if (!store.error) {
-                      refetch();
-                    }
                   }}
                   min={4}
                   class="invalid:border-red-500 border"
@@ -109,8 +120,10 @@ export function GenPassword() {
                   id="upperCase"
                   checked={store.upperCase}
                   onChange={() => {
-                    setStore((prev) => ({ ...prev, upperCase: !prev.upperCase, error: undefined }));
-                    refetch();
+                    setStore((draft) => {
+                      draft.upperCase = !draft.upperCase;
+                      delete draft.error;
+                    });
                   }}
                   class="border self-center"
                 />
@@ -125,8 +138,10 @@ export function GenPassword() {
                   id="lowerCase"
                   checked={store.lowerCase}
                   onChange={() => {
-                    setStore((prev) => ({ ...prev, lowerCase: !prev.lowerCase, error: undefined }));
-                    refetch();
+                    setStore((draft) => {
+                      draft.lowerCase = !draft.lowerCase;
+                      delete draft.error;
+                    });
                   }}
                   class="border self-center"
                 />
@@ -141,8 +156,10 @@ export function GenPassword() {
                   id="digits"
                   checked={store.digits}
                   onChange={() => {
-                    setStore((prev) => ({ ...prev, digits: !prev.digits, error: undefined }));
-                    refetch();
+                    setStore((draft) => {
+                      draft.digits = !draft.digits;
+                      delete draft.error;
+                    });
                   }}
                   class="border self-center"
                 />
@@ -157,8 +174,10 @@ export function GenPassword() {
                   id="symbols"
                   checked={store.symbols}
                   onChange={() => {
-                    setStore((prev) => ({ ...prev, symbols: !prev.symbols, error: undefined }));
-                    refetch();
+                    setStore((draft) => {
+                      draft.symbols = !draft.symbols;
+                      delete draft.error;
+                    });
                   }}
                   class="border self-center"
                 />
@@ -170,7 +189,7 @@ export function GenPassword() {
               <p class="text-red-500">{'Failed to generate password'}</p>
             </div>
           </Show>
-        </Suspense>
+        </Loading>
         <Show when={store.error}>
           <div class="flex p-4">
             <p class="text-red-500">{store.error}</p>
@@ -184,7 +203,18 @@ export function GenPassword() {
           target="_blank"
           rel="noopener"
         >
-          <OcMarkgithub2 class="self-center inline mr-2" title="GitHub Repository" />
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            class="self-center inline h-5 w-5 mr-2"
+            aria-hidden="true"
+          >
+            <title>GitHub Repository</title>
+            <path d="M14 3h7v7M10 14 21 3" />
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          </svg>
           Source Code
         </a>
       </div>

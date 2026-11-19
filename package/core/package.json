@@ -7,9 +7,9 @@
   "author": "",
   "type": "module",
   "main": "dist/index.js",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rimraf index.d.ts index.d.ts.map && swc --delete-dir-on-start src -o dist/index.js && tsc -p tsconfig-types.json",
+    "build": "rimraf dist/index.d.ts dist/index.d.ts.map && swc --delete-dir-on-start src -o dist/index.js && tsc -p tsconfig-types.json",
     "lint": "oxfmt --check && oxlint",
     "lint-fix": "oxfmt && oxlint --fix",
     "test": "vitest run"
