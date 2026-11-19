@@ -1,24 +1,21 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
-import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
+import solidPlugin from '@solidjs/vite-plugin';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [solidPlugin()],
   test: {
     environment: 'jsdom',
     globals: true,
-    testTransformMode: {
-      web: ['/\\.[jt]sx?$/'],
-    },
     setupFiles: './setupVitest.ts',
     // solid needs to be inline to work around
     // a resolution issue in vitest:
     deps: {
       optimizer: {
-        web: {
-          include: ['/solid-js/'],
+        client: {
+          include: ['/solid-js/', '/@solidjs/web/'],
         },
       },
     },
