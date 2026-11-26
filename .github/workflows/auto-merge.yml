@@ -10,7 +10,7 @@ jobs:
   auto-merge:
     runs-on: ubuntu-latest
 
-    if: github.actor != 'dependabot[bot]' && !github.event.pull_request.draft
+    if: github.event.pull_request.draft == false
 
     steps:
       - name: Enable auto-merge for Pull Request
